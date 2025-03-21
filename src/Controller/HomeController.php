@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\Query\Expr\Func;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 

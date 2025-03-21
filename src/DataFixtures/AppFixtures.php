@@ -11,6 +11,9 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $categories = [];
+        $users = [];
+
         //Instancier Faker
         $faker = Faker\Factory::create("fr_FR");
         
@@ -18,9 +21,11 @@ class AppFixtures extends Fixture
         for ($i=0; $i < 200 ; $i++) { 
             $category = new Category();
             //Setter le label avec un métier aléatoire
-            $category->setLabel($faker->unique()->jobTitle());
+            $category
+                ->setLabel($faker->unique()->jobTitle());
             //Mettre en cache la catégorie
             $manager->persist($category);
+            $categories[] = $category;
         }
         //Synchroniser avec la BDD
         $manager->flush();

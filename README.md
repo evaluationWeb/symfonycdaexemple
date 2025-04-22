@@ -17,5 +17,5 @@ composer install
 
 installer tailwindcss :
 ```sh
-bash script-tailwindcss.sh
+bash script-tailwind.sh
 ```

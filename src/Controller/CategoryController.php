@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\CategoryRepository;
+use App\Service\CategoryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -10,14 +10,20 @@ use Symfony\Component\Routing\Attribute\Route;
 final class CategoryController extends AbstractController
 {
     public function __construct(
-        private readonly CategoryRepository $categoryRepository
+        private readonly CategoryService $categoryService
     )
     {}
 
     #[Route('/categories', name: 'app_category_all')]
     public function showAll(): Response
     {
-        $categories = $this->categoryRepository->findAll();
+        try {
+            $categories = $this->categoryService->getAllCategories();
+        }
+        catch(\Exception $e) {
+            $categories = null;
+        }
+        
 
         return $this->render('category/categories.html.twig', [
             'categories' => $categories,

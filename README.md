@@ -40,3 +40,9 @@ Appliquer la migration
 symfony console d:m:m
 ```
 
+Générer les fixtures :
+```sh
+symfony console d:f:l
+```
+
+

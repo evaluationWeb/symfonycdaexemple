@@ -1,3 +1,3 @@
 import './bootstrap.js';
 import './styles/app.css';
-import './styles/tailwind.css';
+import './styles/app.tailwind.css';

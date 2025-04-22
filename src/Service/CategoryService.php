@@ -2,12 +2,15 @@
 
 namespace App\Service;
 
+use App\Entity\Category;
 use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 class CategoryService
 {
     public function __construct(
-        private readonly CategoryRepository $categoryRepository
+        private readonly CategoryRepository $categoryRepository,
+        private readonly EntityManagerInterface $em
     )
     {}
 
@@ -25,5 +28,22 @@ class CategoryService
         }
         //Retourne la liste des catègories
         return $categories;
+    }
+
+    public function saveCategory(Category $category){
+        try {
+            //Test si elle n'existe pas déja
+            if($this->categoryRepository->findOneBy(["label"=>$category->getLabel()])) {
+                throw new \Exception("La categorie existe déja");
+            }
+            //Ajouter en BDD
+            $this->em->persist($category);
+            $this->em->flush();
+            } 
+        catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+        
+        return true;
     }
 }

@@ -27,9 +27,9 @@
             </p>
         </div>
         {% for category in article.categories %}
-        <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-500 text-white">{{ category.label }}</span>
-
-        
+        <span
+            class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-500 text-white">{{
+            category.label }}</span>
         {% endfor %}
     </article>
     {% endfor %}

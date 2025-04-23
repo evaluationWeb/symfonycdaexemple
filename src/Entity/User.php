@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -29,12 +30,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\Regex(
+        pattern: "/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}/",
+        match: true,
+        message: 'Le mot de passe doit contenir des lettres min et maj et des nombres',
+    )]
     private ?string $password = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\NotBlank(
+        message: "Le prènom ne doit pas être vide"
+    )]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: 'Le prènom doit posséder au moins {{ limit }} caractères',
+        maxMessage: 'Le prènom doit posséder au maximum {{ limit }} caractères',
+    )]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\NotBlank(
+        message: "Le Nom ne doit pas être vide"
+    )]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: 'Le nom doit posséder au moins {{ limit }} caractères',
+        maxMessage: 'Le nom doit posséder au maximum {{ limit }} caractères',
+    )]
     private ?string $lastname = null;
 
     public function getId(): ?int

@@ -29,4 +29,4 @@ touch assets/styles/tailwind.css
 echo "Configuration app.js"
 echo "import './bootstrap.js';
 import './styles/app.css';
-import './styles/tailwind.css';">assets/app.js
+import './styles/app.tailwind.css';">assets/app.js

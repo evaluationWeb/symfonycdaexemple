@@ -3,7 +3,9 @@
 {% block title %}Articles{% endblock %}
 
 {% block body %}
+<turbo-frame id="id_article">
     <h1>Ajouter un article</h1>
-    {{ form(form) }}
-
+    {{ form(formulaire) }}
+    {% include "component/_toast.html.twig" %}
+</turbo-frame>
 {% endblock %}

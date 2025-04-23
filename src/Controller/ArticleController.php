@@ -34,12 +34,33 @@ final class ArticleController extends AbstractController
     #[Route('/article/add', name:'app_article_add')]
     public function addArticle(Request $request) :Response
     {
+        //Objet article (recevoir le résultat du formulaire)
         $article = new Article();
+        //Créer un Objet Form
         $form = $this->createForm(ArticleType::class,$article);
+        //Récupération du resultat de la requête
         $form->handleRequest($request);
 
+        //Test si le formulaire est soumis
+        if($form->isSubmitted()) {
+            try {
+                $msg = "";
+                $type = "";
+                if($this->articleService->saveArticle($article)){
+                    $msg = "L'article " . $article->getTitle() . " a été ajouté";
+                    $type = "success";
+                }
+            } catch (\Exception $e) {
+                $msg = $e->getMessage();
+                $type = "danger";
+            }
+            $this->addFlash($type, $msg);
+        }
+        
+
+        //Retourner la page html (avec le formulaire)
         return $this->render('article/article_add.html.twig',[
-            'form' => $form
+            'formulaire' => $form
         ]);
     }
 }

@@ -25,7 +25,7 @@ echo "@tailwind base;
 @tailwind components;
 @tailwind utilities;">assets/styles/app.css
 echo "création du fichier tailwind.css"
-touch assets/styles/tailwind.css 
+touch assets/styles/app.tailwind.css 
 echo "Configuration app.js"
 echo "import './bootstrap.js';
 import './styles/app.css';

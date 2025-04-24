@@ -16,10 +16,23 @@ class WeatherService
     {
         $response = $this->httpClient->request(
             'GET',
-            'https://api.openweathermap.org/data/2.5/weather?lon=1.44&lat=43.6&appid=' . $this->apikey
-        );
+            'https://api.openweathermap.org/data/2.5/weather?q=albi&appid=' . $this->apikey . "&units=metric");
         $data = $response->getContent();
         $data = $response->toArray();
+        return $data;
+    }
+
+    public function getWeatherByCity(string $city) {
+        try {
+            $response = $this->httpClient->request(
+                'GET',
+                'https://api.openweathermap.org/data/2.5/weather?q=' . $city.'&appid=' . $this->apikey . "&units=metric");
+            $data = $response->getContent();
+            $data = $response->toArray();
+        } catch (\Exception $e) {
+            $data["cod"] = $e->getCode();
+        }
+        
         return $data;
     }
 }

@@ -11,6 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
+
 
 class RegisterType extends AbstractType
 {
@@ -30,6 +33,11 @@ class RegisterType extends AbstractType
                 'type' => PasswordType::class,
                 'first_options'  => ['label' => 'Saisir le mot de passe' ],
                 'second_options' => ['label' => 'Confirmer le mot de passe'],
+            ])
+            ->add('captcha', Recaptcha3Type::class, [
+                'constraints' => new Recaptcha3(),
+                'action_name' => 'register',
+                'locale' => 'fr',
             ])
             ->add('save', SubmitType::class,[
                 'label' => 'Enregistrer'

@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class ArticleController extends AbstractController
 {
@@ -32,6 +33,7 @@ final class ArticleController extends AbstractController
     }
 
     #[Route('/article/add', name:'app_article_add')]
+    #[IsGranted("ROLE_ADMIN")]
     public function addArticle(Request $request) :Response
     {
         //Objet article (recevoir le résultat du formulaire)

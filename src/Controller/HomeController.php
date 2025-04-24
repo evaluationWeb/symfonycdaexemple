@@ -5,11 +5,20 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Service\WeatherService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class HomeController
+class HomeController extends AbstractController
 {
+    public function __construct(
+        private readonly WeatherService $weather
+    )
+    {
+    }
+
     public function home() :Response{
-        return new Response("Bienvenue");
+        dd($this->weather->getWeather());
+        return new Response();
     }
 
     #[Route('/home/{firstname}', name: 'app_home_homefirstname')]
